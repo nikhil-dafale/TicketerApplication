@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+    {% if tickets %}
+        <div class="list-group">
+            {% for ticket in tickets %}
+                {% if ticket.status == 'Open' %}
+                    <li class="list-group-item">
+                        <a class="list-group-item" href="{% url 'detail' ticket.id %}">{{ ticket.title }}</a>
+
+                    </li>
+                    <!-- Delete Ticket -->
+                    <form action="{% url 'delete_ticket' ticket.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="ticket_id" value="{{ ticket.id }}" />
+                        <button type="submit" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </form>
+                    <!-- Edit Ticket -->
+                    <form action="{% url 'edit_ticket' ticket.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="ticket_id" value="{{ ticket.id }}" />
+                        <button type="submit" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </button>
+                    </form>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <h3>There is no tickets avaiable</h3>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base_visitor.html" %}
+{% block title %}Registration{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-12 col-md-7">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h3>Create a New Account</h3>
+                        {% if error_mensage %}
+                            <p><strong>{{ error_mensage }}</strong></p>
+                        {% endif %}
+                        <form action="" class="form-horizontal" method="post">
+                            {% csrf_token %}
+                            {% include "form_template.html" %}
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button class="btn btn-success" type="submit">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
